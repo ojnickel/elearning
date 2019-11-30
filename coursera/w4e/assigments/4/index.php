@@ -16,6 +16,7 @@
          
          </pre>
     <a href="fail.php">Errors, errors, errors,...</a>
+    <br/>
     <a href="check.php">To check or not to check....</a>
   </body>
 </html>
