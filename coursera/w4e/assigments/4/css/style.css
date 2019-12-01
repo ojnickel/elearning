@@ -1,0 +1,23 @@
+body {
+  background: #fff;
+  font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+}
+.box {
+  border: 1px solid #000;
+  padding: 5px;
+  margin: 5px;
+  width: 50%;
+  background-color: #856;
+  display: block;
+}
+.link {
+  text-align: center;
+}
+a {
+  color: #e7e7e7;
+  text-decoration: none;
+}
+a:hover {
+    background-color: #fff;
+    color: #856;
+}
