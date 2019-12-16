@@ -9,7 +9,7 @@
     <div class="main">
       <h1>Crack it up!</h1>
       <p class="intro">This application takes an MD5 hash of a two-character lower case string and attempts to hash all two-character combinations to determine the original two characters.</p>
-      <h2>And...</h2>
+      <h4>And the winner is...</h4>
      <pre>
 <?php
 $goodtext = "Not found";
@@ -75,7 +75,7 @@ if ( isset($_GET['md5']) ) {
 <p id="result">
 <?php
 if ( isset($_GET['md5']) ) {
-    echo '<p id="result">...the winner is: <span>'. $goodtext. '</span></p>';
+    echo '<p id="result">PIN: <span>'. $goodtext. '</span></p>';
 }
   
 ?>
