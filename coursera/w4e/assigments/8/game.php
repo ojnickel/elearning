@@ -25,15 +25,15 @@ $computer = rand(0,2);
 function check($computer, $human) {
     //with % one can calculate the     outcome
     //0 -> tie, 1 ->  human win,  2  -> computer   win
-    $dif = ($human - $computer) + 3;
-    if ( $dif %  3 == 0 ) {
-        return "Tie";
-    } else if ( ($dif % 3 ) == 1 ) {
-        return "You Win";
-    } else if ( ($dif % 3) == 2 ) {
-        return "You Lose";
-    }
-    return false;
+    $dif = ($human - $computer) + 3; //it cannot be negative
+    #if ( $dif %  3 == 0 ) {
+    #    return "Tie";
+    #} else if ( ($dif % 3 ) == 1 ) {
+    #    return "You Win";
+    #} else if ( ($dif % 3) == 2 ) {
+    #    return "You Lose";
+    #}
+    return  "h: " . $human." c: ". $computer." -> ". $dif. " %3: ".$dif%3;
 }
 
 // Check to see how the play happenned
