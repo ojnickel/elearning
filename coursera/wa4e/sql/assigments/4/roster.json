@@ -1,0 +1,53 @@
+[
+    {"type":"header","version":"5.0.1","comment":"Export to JSON plugin for PHPMyAdmin"},
+    {"type":"database","name":"roster"},
+    {"type":"table","name":"Course","database":"roster","data":
+        [
+            {"id":"1","title":"si106"},
+            {"id":"2","title":"si110"},
+            {"id":"3","title":"si206"}
+            
+        ]
+    }
+    ,{"type":"table","name":"Member","database":"roster","data":
+        [
+            {"user_id":"1","course_id":"1","role":"1"},
+            {"user_id":"2","course_id":"1","role":"0"},
+            {"user_id":"3","course_id":"1","role":"0"},
+            {"user_id":"4","course_id":"1","role":"0"},
+            {"user_id":"5","course_id":"1","role":"0"},
+            {"user_id":"6","course_id":"2","role":"1"},
+            {"user_id":"7","course_id":"2","role":"0"},
+            {"user_id":"8","course_id":"2","role":"0"},
+            {"user_id":"9","course_id":"2","role":"0"},
+            {"user_id":"10","course_id":"2","role":"0"},
+            {"user_id":"11","course_id":"3","role":"1"},
+            {"user_id":"12","course_id":"3","role":"0"},
+            {"user_id":"13","course_id":"3","role":"0"},
+            {"user_id":"14","course_id":"3","role":"0"},
+            {"user_id":"15","course_id":"3","role":"0"}
+            
+        ]
+    }
+    ,{"type":"table","name":"User","database":"roster","data":
+        [
+            {"id":"12","name":"Caleigh"},
+            {"id":"13","name":"Chen"},
+            {"id":"14","name":"Cirah"},
+            {"id":"7","name":"Exodi"},
+            {"id":"8","name":"Haydyn"},
+            {"id":"2","name":"Joude"},
+            {"id":"6","name":"Keilan"},
+            {"id":"3","name":"Keison"},
+            {"id":"1","name":"Koushik"},
+            {"id":"15","name":"Maryk"},
+            {"id":"4","name":"Rholmark"},
+            {"id":"9","name":"Ryhanna"},
+            {"id":"5","name":"Sidonie"},
+            {"id":"11","name":"Wen"},
+            {"id":"10","name":"Willa"}
+            
+        ]
+    }
+    
+]
