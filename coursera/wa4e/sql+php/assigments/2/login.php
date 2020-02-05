@@ -10,21 +10,25 @@ $salt = 'XyZzy12*_';
 $stored_hash = '1a52e17fa899cf40fb04cfc42e6352f1';  // Pw is php123
 
 $failure = false;  // If we have no POST data
-
 // Check to see if we have some POST data, if we do process it
-if ( isset($_POST['who']) && isset($_POST['pass']) ) {
-    if ( strlen($_POST['who']) < 1 || strlen($_POST['pass']) < 1 ) {
+if ( isset($_POST['who']) && isset($_POST['pass']))  {
+    //prevent html injection
+    $user  = htmlentities($_POST['who']);
+    $pass = htmlentities ($_POST['pass']);
+    if ( strlen($user) < 1 || strlen($pass) < 1 ) {
         $failure = "User name and password are required";
     //chech if "@" is set in who
-    } elseif ( !stristr(  $_POST['who'], "@" )){
+    } elseif ( !stristr(  $user, "@" )){
         $failure = "Email must have an at-sign (@)";
     } else {
-        $check = hash('md5', $salt.$_POST['pass']);
+        $check = hash('md5', $salt.$pass);
         if ( $check == $stored_hash ) {
+            error_log("Login success ".$_POST['who']);
             // Redirect the browser to autos.php
             header("Location: autos.php?name=".urlencode($_POST['who']));
             return;
         } else {
+            error_log("Login fail ".$_POST['who']." $check");
             $failure = "Incorrect password";
         }
     }
