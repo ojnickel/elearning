@@ -16,7 +16,7 @@ if ( isset($_POST['who']) && isset($_POST['pass']))  {
     $user  = htmlentities($_POST['who']);
     $pass = htmlentities ($_POST['pass']);
     if ( strlen($user) < 1 || strlen($pass) < 1 ) {
-        $failure = "User name and password are required";
+        $failure = "Email and password are required";
     //chech if "@" is set in who
     } elseif ( !stristr(  $user, "@" )){
         $failure = "Email must have an at-sign (@)";

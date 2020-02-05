@@ -8,25 +8,42 @@ if ( ! isset($_GET['name']) || strlen($_GET['name']) < 1  ) {
 require_once ('pdo.php');
 
 //get a list of autos
-function make_list(){
-    $stmt = $pdo->query("SELECT make, year, mileage FROM misc");
+function make_list($pdo){
+    $stmt = $pdo->query("SELECT make, year, mileage FROM autos");
     $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $rows;
 }
+$failure = false;  // If we have no POST data
 //check  if  insert was successful --> first,  false
 $success=0;;
+//global
+$make = 0;
+$year = 0;
+$mil= 0;
 
 if ( isset($_POST['make']) && isset($_POST['year']) 
-     && isset($_POST['mileage'])) {
-    $sql = "INSERT INTO misc (make, year, mileage) 
+    && isset($_POST['mileage'])) {
+    //prevent html injection
+    $make=htmlentities($_POST['make']);
+    $year=htmlentities($_POST['year']);
+    $mil=htmlentities($_POST['mileage']);
+
+    if (!is_numeric($year) || !is_numeric($mil)) {
+        $failure= "Mileage and year must be numeric";
+    }
+    elseif ( strlen($make)<1 ) {
+        $failure="Make is required";
+    } else {
+        $sql = "INSERT INTO autos (make, year, mileage) 
               VALUES (:mk, :yr, :ml)";
-    echo("<pre>\n".$sql."\n</pre>\n");
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute(array(
-        ':mk' => $_POST['make'],
-        ':yr' => $_POST['year'],
-        ':ml' => $_POST['mileage']));
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(array(
+            ':mk' => $make,
+            ':yr' => $year,
+            ':ml' => $mil));
     $success=1;
+    
+    }
 }
 
 // If the user requested logout go back to index.php
@@ -46,12 +63,16 @@ if ( isset($_POST['logout']) ) {
 <body>
     <div id="main">
       <?php 
+        //check if there's an error
+        if ( $failure !== false ) {
+            echo('<p class="error">'.htmlentities($failure)."</p>\n");
+        }
         if ($success > 0) {
             echo '<h5 class="success">Record inserted</h5>';
 } ?>
         <h2>Track Autos for </h2>
         <?php
-            if ( isset($_REQUEST['make']) ) {
+            if ( isset($_REQUEST['name']) ) {
                 echo "<h4>". htmlentities($_REQUEST['name']) . "</h4>";
 }
 ?>
@@ -68,7 +89,7 @@ if ( isset($_POST['logout']) ) {
             </div>
         </form>
         <?php
-          $data=make_list();
+          $data=make_list($pdo);
 if (!empty($data)){?>
 <table>
     <tr>
