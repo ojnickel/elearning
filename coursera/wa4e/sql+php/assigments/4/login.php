@@ -1,57 +1,43 @@
 <?php // Do not put any HTML above this line
 
-$salt = 'XyZzy12*_';
-$stored_hash = '1a52e17fa899cf40fb04cfc42e6352f1';  // Pw is php123
-    session_start();
-    if ( isset($_POST["email"]) && isset($_POST["pw"]) ) {
-        unset($_SESSION["name"]);  // Logout current user
+session_start();
+
+if (isset($_POST['cancel'])) {
+    // Redirect the browser to sttartpage
+    header("Location: index.php");
+    return;
+}
+if (isset($_POST["email"]) && isset($_POST["pass"])) {
+    unset($_SESSION["name"]); // Logout current user
     //prevent html injection
-    $user  = htmlentities($_POST['email']);
-    $pass = htmlentities ($_POST['pass']);
-    if ( strlen($user) < 1 || strlen($pass) < 1 ) {
-        $failure = ;
+    $user = htmlentities($_POST['email']);
+    $pass = htmlentities($_POST['pass']);
+    if (strlen($user) < 1 || strlen($pass) < 1) {
         $_SESSION['error'] = "Email and password are required";
         header("Location: login.php");
-        return;  
-    //chech if "@" is set in email
-    } elseif ( !stristr(  $user, "@" )){
+        return;
+        //chech if "@" is set in email
+    } elseif (!stristr($user, "@")) {
         $failure = "Email must have an at-sign (@)";
         $_SESSION['error'] = "Email must have an at-sign (@)";
         header("Location: login.php");
         return;
     } else {
-        $check = hash('md5', $salt.$pass);
-        if ( $check == $stored_hash ) {
-            error_log("Login success ".$_POST['email']);
+        //email correct
+        $salt = 'XyZzy12*_';
+        $stored_hash = '1a52e17fa899cf40fb04cfc42e6352f1'; // Pw is php123
+        $check = hash('md5', $salt . $pass);
+        if ($check == $stored_hash) {
+            error_log("Login success " . $_POST['email']);
             // Redirect the browser to view.php
             $_SESSION['name'] = $_POST['email'];
             header("Location: view.php");
             return;
-        if ( $_POST['pw'] == 'umsi' ) {
-            $_SESSION["name"] = $_POST["email"];
-            $_SESSION["success"] = "Logged in.";
-            header( 'Location: app.php' ) ;
-            return;
         } else {
-            error_log("Login fail ".$_POST['email']." $check");
+            error_log("Login fail " . $_POST['email'] . " $check");
             $_SESSION["error"] = "Incorrect password.";
-            header( 'Location: login.php' ) ;
+            header('Location: login.php');
             return;
-        }
-    }
-if ( isset($_POST['cancel'] ) ) {
-    // Redirect the browser to sttartpage
-    header("Location: index.php");
-    return;
-}
-
-
-$failure = false;  // If we have no POST data
-// Check to see if we have some POST data, if we do process it
-if ( isset($_POST['email']) && isset($_POST['pass']))  {
-        } else {
-            error_log("Login fail ".$_POST['email']." $check");
-            $failure = "Incorrect password";
         }
     }
 }
@@ -68,12 +54,14 @@ if ( isset($_POST['email']) && isset($_POST['pass']))  {
     <div id="main">
         <h2>Welcome</h2>
         <h4>Please log in:</h4>
-        <?php
-            //check if there's an error
-            if ( $failure !== false ) {
-              echo('<p class="error">'.htmlentities($failure)."</p>\n");
-}
-        ?>
+        <?php //check if there's an error
+//check if there's an error
+?>if (isset($_SESSION['error'])) {
+            echo '<p class="error">' .
+                htmlentities($_SESSION['error']) .
+                "</p>\n";
+            unset($_SESSION['error']);
+        } ?>
         <div class="login">
             <form action="" method="post">
                 <label class="lbl" for="nam">E-Mail Adress</label>
