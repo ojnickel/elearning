@@ -13,7 +13,14 @@
             <p>Do your thing:</p>
             <a href="login.php"><span>Please Log In</span></a>
         </divi>
-        <h4>if you don't log in or attempt to go to <a href="autos.php">autos.php</a>, no game :-(</h4>
+        <div class="message">
+            <h4>if you don't log in or attempt to go to </h4>
+            <ul>
+                <li><a class="link" href="view.php">view.php</a></li>
+                <li><a class="link" href="add.php">add.php</a></li>
+            </ul>
+            <h4>, no game :-(</h4>
+        </div>
     </div>
 </body>
 </html>

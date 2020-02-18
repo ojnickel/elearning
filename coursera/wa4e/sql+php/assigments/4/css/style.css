@@ -85,3 +85,10 @@ tr:nth-child(even) {
     background-color: #333;
     color: #0c0;
 }
+.message {
+    display: block;
+    text-align: center;
+    background-color: #337;
+    color: #ccc;
+    font-weight: bold;
+}
