@@ -19,7 +19,7 @@
                 <li><a class="link" href="view.php">view.php</a></li>
                 <li><a class="link" href="add.php">add.php</a></li>
             </ul>
-            <h4>, no game :-(</h4>
+            <h4>no game :-(</h4>
         </div>
     </div>
 </body>

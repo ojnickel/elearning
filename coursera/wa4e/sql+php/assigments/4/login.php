@@ -31,6 +31,7 @@ if (isset($_POST["email"]) && isset($_POST["pass"])) {
             error_log("Login success " . $_POST['email']);
             // Redirect the browser to view.php
             $_SESSION['name'] = $_POST['email'];
+            $_SESSION["success"] = "Logged in.";
             header("Location: view.php");
             return;
         } else {
@@ -54,14 +55,13 @@ if (isset($_POST["email"]) && isset($_POST["pass"])) {
     <div id="main">
         <h2>Welcome</h2>
         <h4>Please log in:</h4>
-        <?php //check if there's an error
-//check if there's an error
-?>if (isset($_SESSION['error'])) {
-            echo '<p class="error">' .
-                htmlentities($_SESSION['error']) .
-                "</p>\n";
-            unset($_SESSION['error']);
-        } ?>
+        <?php 
+            //check if there's an error
+            if (isset($_SESSION['error'])) {
+                echo '<p class="error">' . htmlentities($_SESSION['error']) . "</p>\n";
+                unset($_SESSION['error']);
+            } 
+        ?>
         <div class="login">
             <form action="" method="post">
                 <label class="lbl" for="nam">E-Mail Adress</label>

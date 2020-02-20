@@ -92,3 +92,6 @@ tr:nth-child(even) {
     color: #ccc;
     font-weight: bold;
 }
+ul {
+    list-style: none;
+}
