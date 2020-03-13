@@ -1,6 +1,7 @@
 <?php // Do not put any HTML above this line
 
 session_start();
+require_once 'pdo.php';
 
 if (isset($_POST['cancel'])) {
     // Redirect the browser to sttartpage
@@ -9,6 +10,7 @@ if (isset($_POST['cancel'])) {
 }
 if (isset($_POST["email"]) && isset($_POST["pass"])) {
     unset($_SESSION["name"]); // Logout current user
+    unset ($_SESSION['user_id'])
     //prevent html injection
     $user = htmlentities($_POST['email']);
     $pass = htmlentities($_POST['pass']);
@@ -18,19 +20,23 @@ if (isset($_POST["email"]) && isset($_POST["pass"])) {
         return;
         //chech if "@" is set in email
     } elseif (!stristr($user, "@")) {
-        $failure = "Email must have an at-sign (@)";
         $_SESSION['error'] = "Email must have an at-sign (@)";
         header("Location: login.php");
         return;
     } else {
         //email correct
         $salt = 'XyZzy12*_';
-        $stored_hash = '1a52e17fa899cf40fb04cfc42e6352f1'; // Pw is php123
-        $check = hash('md5', $salt . $pass);
-        if ($check == $stored_hash) {
+        $check = hash('md5', $salt.$_POST['pass']);
+        $stmt = $pdo->prepare('SELECT user_id, name FROM users
+            WHERE email = :em AND password = :pw');
+        $stmt->execute(array( ':em' => $_POST['email'], ':pw' => $check ));
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ( $row !== false  ) {
+            $_SESSION['name'] = $row['name'];
+            $_SESSION['user_id'] = $row['user_id'];
             error_log("Login success " . $_POST['email']);
             // Redirect the browser to index.php
-            $_SESSION['name'] = $_POST['email'];
             $_SESSION["success"] = "Logged in.";
             header("Location: index.php");
             return;
