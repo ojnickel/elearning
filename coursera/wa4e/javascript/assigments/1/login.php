@@ -61,9 +61,15 @@ if (isset($_POST["email"]) && isset($_POST["pass"])) {
             console.log("Validating...");
             try {
                 pw = document.getElementById("id_pw").value;
+                em = document.getElementById("id_em").value;
                 console.log("Validating pw=" + pw);
                 if (pw == null || pw == "") {
                     alert("Both fields must be filled out");
+                    return false;
+                }
+                console.log("Validating em=" + em);
+                if   (em.indexOf("@")<0){
+                    alert("Email must have an at-sign (@)");
                     return false;
                 }
                 return true;
