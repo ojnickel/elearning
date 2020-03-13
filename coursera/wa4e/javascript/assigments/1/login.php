@@ -56,6 +56,23 @@ if (isset($_POST["email"]) && isset($_POST["pass"])) {
     <meta charset="UTF-8">
     <title>Oswaldo Nickel's Login Page</title>
     <link rel="stylesheet" href="css/style.css" media="all">
+    <script>
+        function doValidate() {
+            console.log("Validating...");
+            try {
+                pw = document.getElementById("id_pw").value;
+                console.log("Validating pw=" + pw);
+                if (pw == null || pw == "") {
+                    alert("Both fields must be filled out");
+                    return false;
+                }
+                return true;
+            } catch (e) {
+                return false;
+            }
+            return false;
+        }
+    </script>
 </head>
 <body>
     <div id="main">
@@ -71,11 +88,11 @@ if (isset($_POST["email"]) && isset($_POST["pass"])) {
         <div class="login">
             <form action="" method="post">
                 <label class="lbl" for="nam">E-Mail Adress</label>
-                <input id="nam" type="text" name="email">
+                <input id="id_em" type="text" name="email">
                 <label class="lbl" for="">Password</label>
-                <input id="" type="password" name="pass">
+                <input id="id_pw" type="password" name="pass">
                 <div class="lbl">
-                    <input class="link" type="submit" value="Log In">
+                    <input class="link" type="submit" onclick="return doValidate();" value="Log In">
                     <input class="link" type="submit" name="cancel" value="Cancel">
                 </div>
             </form>
