@@ -10,7 +10,7 @@ if (isset($_POST['cancel'])) {
 }
 if (isset($_POST["email"]) && isset($_POST["pass"])) {
     unset($_SESSION["name"]); // Logout current user
-    unset ($_SESSION['user_id'])
+    unset ($_SESSION['user_id']);
     //prevent html injection
     $user = htmlentities($_POST['email']);
     $pass = htmlentities($_POST['pass']);
