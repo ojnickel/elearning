@@ -68,6 +68,10 @@ if (isset($_POST["email"]) && isset($_POST["pass"])) {
                     return false;
                 }
                 console.log("Validating em=" + em);
+                if (em == null || em == "") {
+                    alert("Email is missing");
+                    return false;
+                }
                 if   (em.indexOf("@")<0){
                     alert("Email must have an at-sign (@)");
                     return false;

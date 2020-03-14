@@ -17,7 +17,7 @@ require_once 'pdo.php';
 //validation and modifying db
 require_once 'valmod.php';
 //check if profile_id and user_id are valid
-$row = dataId($pdo, "Profile");
+$row = dataID($pdo, $_GET['profile_id'], $_SESSION['user_id']);
 
 //check if  there is post to add
 if (isPost()) {
